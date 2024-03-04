@@ -1,0 +1,26 @@
+version: '3.9'
+services:
+  api:
+   build:
+     context: .
+     dockerfile: Dockerfile
+   restart: unless-stopped
+   ports:
+     - "3000:3000"
+   depends_on:
+     - mongodb
+
+  mongodb:
+    image: mongo:5.0.2
+    container_name: mongodb
+    environment:
+      - MONGO_INITDB_DATABASE=queries
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - db:/data/db
+    ports:
+      - '27017-27019:27017-27019'
+
+volumes:
+  db:
