@@ -46,7 +46,7 @@ func (a *queries) List(ctx context.Context, skip, limit int64) ([]model.Query, e
 		return nil, err
 	}
 
-	var results []model.Query
+	results := make([]model.Query, 0)
 	if err = cursor.All(ctx, &results); err != nil {
 		return nil, err
 	}
